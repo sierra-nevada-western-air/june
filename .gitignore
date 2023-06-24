@@ -17,9 +17,11 @@ coverage
 /cypress/videos/
 /cypress/screenshots/
 
+# Storybook
+
+storybook-static
+
 # Editor directories and files
-.vscode/*
-!.vscode/extensions.json
 .idea
 *.suo
 *.ntvs*
