@@ -97,10 +97,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Make Publish Directory
+        run: mkdir $${{ matrix.app_type }}
+
       - name: Download Artifact
         uses: actions/download-artifact@v3
         with:
           name: ${{ matrix.app_type }}
+          path: ${{ matrix.app_type }}
 
       - name: Display structure of downloaded files
         run: ls -R
@@ -112,7 +116,7 @@ jobs:
           images: ""
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ secrets.JUNE_WEB_APP_PUBLISH_PROFILE }}
-          package: "./dist"
+          package: ${{ matrix.app_type }}
 
       - name: Deploy Storybook
         if: ${{ matrix.app_type == 'storybook' }}
@@ -121,4 +125,4 @@ jobs:
           images: ""
           app-name: ${{ env.STORYBOOK_WEBAPP_NAME }}
           publish-profile: ${{ secrets.JUNE_STORYBOOK_PUBLISH_PROFILE }}
-          package: "./storybook-static"
+          package: ${{ matrix.app_type }}
