@@ -95,6 +95,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: ${{ matrix.app_type }}
+          path: "."
 
       - name: Deploy Application
         if: ${{ matrix.app_type == 'application' }}
