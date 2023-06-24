@@ -94,9 +94,6 @@ jobs:
         app_type: [application, storybook]
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
       - name: Make Publish Directory
         run: mkdir ${{ matrix.app_type }}
 
