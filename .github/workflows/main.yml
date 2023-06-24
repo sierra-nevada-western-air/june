@@ -98,7 +98,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Make Publish Directory
-        run: mkdir $${{ matrix.app_type }}
+        run: mkdir ${{ matrix.app_type }}
 
       - name: Download Artifact
         uses: actions/download-artifact@v3
