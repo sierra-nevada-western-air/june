@@ -5,7 +5,9 @@
   <main>
     <RouterView />
   </main>
-  <footer></footer>
+  <footer>
+    {{ new Date().toString() }}
+  </footer>
 </template>
 
 <script setup lang="ts">
