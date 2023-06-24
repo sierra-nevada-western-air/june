@@ -112,6 +112,7 @@ jobs:
           images: ""
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ secrets.JUNE_WEB_APP_PUBLISH_PROFILE }}
+          package: "./dist"
 
       - name: Deploy Storybook
         if: ${{ matrix.app_type == 'storybook' }}
@@ -120,3 +121,4 @@ jobs:
           images: ""
           app-name: ${{ env.STORYBOOK_WEBAPP_NAME }}
           publish-profile: ${{ secrets.JUNE_STORYBOOK_PUBLISH_PROFILE }}
+          package: "./storybook-static"
