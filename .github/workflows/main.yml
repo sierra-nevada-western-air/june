@@ -39,6 +39,12 @@ jobs:
       - name: Build Application
         run: npm run build
 
+      - name: Upload Application Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: application
+          path: ./dist
+
   storybook:
     runs-on: ubuntu-latest
 
@@ -66,6 +72,12 @@ jobs:
       - name: Build Storybook
         run: npm run build-storybook
 
+      - name: Upload Storybook artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: storybook
+          path: ./storybook-static
+
   deploy:
     runs-on: ubuntu-latest
     environment: development
@@ -79,20 +91,23 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-        if: ${{ matrix.app_type == 'application' }}
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ matrix.app_type }}
+
       - name: Deploy Application
+        if: ${{ matrix.app_type == 'application' }}
         uses: azure/webapps-deploy@v2
         with:
           images: ""
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ secrets.JUNE_WEB_APP_PUBLISH_PROFILE }}
-          package: "./dist"
 
-        if: ${{ matrix.app_type == 'storybook' }}
       - name: Deploy Storybook
+        if: ${{ matrix.app_type == 'storybook' }}
         uses: azure/webapps-deploy@v2
         with:
           images: ""
           app-name: ${{ env.STORYBOOK_WEBAPP_NAME }}
           publish-profile: ${{ secrets.JUNE_STORYBOOK_PUBLISH_PROFILE }}
-          package: "./storybook-static"
