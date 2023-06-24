@@ -96,6 +96,9 @@ jobs:
         with:
           name: ${{ matrix.app_type }}
 
+      - name: Display structure of downloaded files
+        run: ls -R
+
       - name: Deploy Application
         if: ${{ matrix.app_type == 'application' }}
         uses: azure/webapps-deploy@v2
