@@ -72,9 +72,6 @@ jobs:
       - name: Build Storybook
         run: npm run build-storybook
 
-      - name: Display structure of downloaded files
-        run: ls -R
-
       - name: Upload Storybook artifact
         uses: actions/upload-artifact@v3
         with:
@@ -98,9 +95,6 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: ${{ matrix.app_type }}
-
-      - name: Display structure of downloaded files
-        run: ls -R
 
       - name: Deploy Application
         if: ${{ matrix.app_type == 'application' }}
