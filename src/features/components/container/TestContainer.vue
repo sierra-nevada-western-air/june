@@ -1,9 +1,9 @@
 <template>
   <LayoutContainer>
-    <h1>Home!</h1>
+    <p>container content</p>
   </LayoutContainer>
 </template>
 
 <script setup lang="ts">
-import { LayoutContainer } from "../components";
+import LayoutContainer from "./LayoutContainer.vue";
 </script>
