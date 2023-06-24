@@ -45,4 +45,4 @@ jobs:
           images: ""
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ secrets.JUNE_WEB_APP_PUBLISH_PROFILE }}
-          package: ./build
+          package: ./dist
