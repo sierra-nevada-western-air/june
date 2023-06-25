@@ -78,10 +78,45 @@ jobs:
           name: storybook
           path: ./storybook-static
 
+  integration:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        browser: [firefox, chrome, edge]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Restore Dependencies
+        run: npm ci
+
+      - name: Install Serve
+        run: npm install -g serve
+
+      - name: Lint Integration Test
+        run: npm run lint:e2e
+
+      - name: Build Application
+        run: npm run build
+
+      - name: Run Cypress on Browsers
+        uses: cypress-io/github-action@v5
+        with:
+          start: serve -s ./dist -l 3000
+          wait-on: "http://localhost:3000"
+          browser: ${{ matrix.browser }}
+
   deploy:
     runs-on: ubuntu-latest
     environment: development
-    needs: [application, storybook]
+    needs: [application, storybook, integration]
 
     strategy:
       matrix:
