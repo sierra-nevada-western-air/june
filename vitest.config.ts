@@ -15,6 +15,10 @@ export default mergeConfig(
         web: [/\.[jt]sx$/],
       },
       globals: true,
+      coverage: {
+        enabled: true,
+        src: ["./src/features"],
+      },
     },
   })
 );
