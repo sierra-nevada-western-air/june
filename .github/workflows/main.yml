@@ -12,7 +12,8 @@ env:
   STORYBOOK_WEBAPP_NAME: "swna-june-storybook-development"
 
 jobs:
-  application:
+  unit:
+    name: Lint & Unit Tests
     runs-on: ubuntu-latest
 
     steps:
@@ -35,6 +36,28 @@ jobs:
 
       - name: Run Unit Tests
         run: npm run test:unit
+
+      - name: Print Job Summary
+        run: |
+          echo "# Unit Tests Summary :chart_with_upwards_trend:" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          cat ./coverage/coverage-final.txt >> $GITHUB_STEP_SUMMARY
+
+  application:
+    name: Build Application
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Restore Dependencies
+        run: npm ci
 
       - name: Build Application
         run: npm run build
@@ -46,6 +69,7 @@ jobs:
           path: ./dist
 
   storybook:
+    name: Build Storybook
     runs-on: ubuntu-latest
 
     steps:
@@ -60,15 +84,6 @@ jobs:
       - name: Restore Dependencies
         run: npm ci
 
-      - name: Lint Application
-        run: npm run lint
-
-      - name: Create Coverage Folder
-        run: mkdir coverage
-
-      - name: Run Unit Tests
-        run: npm run test:unit
-
       - name: Build Storybook
         run: npm run build-storybook
 
@@ -78,10 +93,47 @@ jobs:
           name: storybook
           path: ./storybook-static
 
+  integration:
+    name: Integration Tests
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        browser: [firefox, chrome, edge]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Restore Dependencies
+        run: npm ci
+
+      - name: Install Serve
+        run: npm install -g serve
+
+      - name: Lint Integration Test
+        run: npm run lint:e2e
+
+      - name: Build Application
+        run: npm run build
+
+      - name: Run Cypress on Browsers
+        uses: cypress-io/github-action@v5
+        with:
+          start: serve -s ./dist -l 5173
+          wait-on: "http://localhost:5173"
+          browser: ${{ matrix.browser }}
+
   deploy:
+    name: Deploy Application & Storybook
     runs-on: ubuntu-latest
     environment: development
-    needs: [application, storybook]
+    needs: [application, storybook, integration, unit]
 
     strategy:
       matrix:

@@ -15,6 +15,17 @@ export default mergeConfig(
         web: [/\.[jt]sx$/],
       },
       globals: true,
+      coverage: {
+        enabled: true,
+        src: ["./src/features"],
+        reporter: [
+          ["html"],
+          ["clover"],
+          ["lcov", { projectRoot: "./src" }],
+          ["json", { file: "coverage.json" }],
+          ["text", { file: "coverage-final.txt" }],
+        ],
+      },
     },
   })
 );
