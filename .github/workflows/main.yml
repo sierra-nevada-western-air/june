@@ -41,7 +41,7 @@ jobs:
         run: |
           echo "# Unit Tests Summary :chart_with_upwards_trend:" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          cat ./coverage/clover.xml >> $GITHUB_STEP_SUMMARY
+          cat ./coverage/coverage-final.txt >> $GITHUB_STEP_SUMMARY
 
   application:
     name: Build Application
