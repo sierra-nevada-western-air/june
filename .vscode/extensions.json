@@ -1,3 +1,22 @@
 {
-  "recommendations": ["Vue.volar", "Vue.vscode-typescript-vue-plugin"]
+  "recommendations": [
+    "Vue.volar",
+    "Vue.vscode-typescript-vue-plugin",
+    "ms-azuretools.vscode-azureappservice",
+    "ms-azuretools.vscode-azureresourcegroups",
+    "aaron-bond.better-comments",
+    "webben.browserslist",
+    "streetsidesoftware.code-spell-checker",
+    "editorconfig.editorconfig",
+    "dbaeumer.vscode-eslint",
+    "github.vscode-github-actions",
+    "eamodio.gitlens",
+    "zignd.html-css-class-completion",
+    "shd101wyy.markdown-preview-enhanced",
+    "pkief.material-icon-theme",
+    "unifiedjs.vscode-mdx",
+    "esbenp.prettier-vscode",
+    "syler.sass-indented",
+    "zixuanchen.vitest-explorer"
+  ]
 }
