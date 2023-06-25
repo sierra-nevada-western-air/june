@@ -1,3 +1,12 @@
 {
-  "words": ["autodocs", "lcov", "nightwatch", "Pinia", "snwa"]
+  "words": [
+    "autodocs",
+    "compat",
+    "lcov",
+    "nightwatch",
+    "Pinia",
+    "snwa",
+    "sonarjs",
+    "vuejs"
+  ]
 }

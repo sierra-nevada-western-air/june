@@ -12,14 +12,50 @@
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
+    "@vue/eslint-config-typescript",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:@typescript-eslint/strict",
-    "@vue/eslint-config-typescript",
+    "plugin:unicorn/recommended",
+    "plugin:sonarjs/recommended",
+    "plugin:promise/recommended",
     "plugin:vue/vue3-recommended",
+    "plugin:vuejs-accessibility/recommended",
+    "plugin:compat/recommended",
+    "plugin:vitest/all",
     "plugin:cypress/recommended",
     "plugin:storybook/recommended",
     "plugin:prettier/recommended"
   ],
-  "rules": {},
+  "rules": {
+    "@typescript-eslint/explicit-function-return-type": 2,
+    "@typescript-eslint/array-type": [2, { "default": "generic" }],
+    "@typescript-eslint/explicit-member-accessibility": 2,
+    "@typescript-eslint/member-ordering": 2,
+    "@typescript-eslint/parameter-properties": 2,
+    "unicorn/filename-case": [
+      2,
+      {
+        "case": "pascalCase",
+        "ignore": [
+          "\\.test\\.*",
+          "\\.routes\\.*",
+          "\\.stories\\.*",
+          "\\.cy\\.*"
+        ]
+      }
+    ],
+    "unicorn/consistent-function-scoping": [
+      2,
+      { "checkArrowFunctions": false }
+    ],
+    "vuejs-accessibility/label-has-for": [
+      2,
+      {
+        "required": {
+          "every": ["id"]
+        }
+      }
+    ]
+  },
   "overrides": []
 }

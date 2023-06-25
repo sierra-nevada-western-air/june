@@ -1,4 +1,8 @@
 src/shims-vue.d.ts
 vitest.config.ts
+src/data/Api.ts
 vite.config.ts
+src/main.ts
+coverage
+src/setupTests.ts
 cypress.config.ts
